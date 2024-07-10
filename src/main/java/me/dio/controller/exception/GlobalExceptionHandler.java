@@ -1,5 +1,6 @@
 package me.dio.controller.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<String> handleUnexpectedException(Throwable unexpectedException) {
-        var message = "Unexpected server error, see the logs.";
+    public ResponseEntity<String> handleUnexpectedException(Throwable unexpectedException, HttpServletRequest request) {
+        var message = "Unexpected server error, see the logs. Requested URL: " + request.getRequestURL();
         logger.error(message, unexpectedException);
         return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -18,6 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // Cria um endpoint que recebe o id e vai buscar o usuario pelo o id e vai retonar o usuario completo caso ele exista.
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
        var user = userService.findById(id);
